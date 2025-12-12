@@ -44,6 +44,10 @@ const goToCreate = () => {
   router.push('/products/create')
 }
 
+const goToDelete = () => {
+  router.push('/products/delete')
+}
+
 onMounted(() => {
   getProducts()
 })

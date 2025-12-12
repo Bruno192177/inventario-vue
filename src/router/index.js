@@ -10,6 +10,8 @@ import RegisterView from '@/views/RegisterView.vue'
 import listProductComponent from '@/components/products/listProductComponent.vue'
 import createProductComponent from '@/components/products/createProductComponent.vue'
 import editProductComponent from '@/components/products/editProductComponent.vue'
+import DeleteProductComponent from '@/components/products/DeleteProductComponent.vue'
+import { meta } from 'eslint-plugin-vue'
 
 const routes = [
   { path: '/', redirect: '/login' },
@@ -18,6 +20,7 @@ const routes = [
   { path: '/products', name: 'products', component: listProductComponent, meta: { requiresAuth: true } },
   { path: '/products/create', name: 'createProduct', component: createProductComponent, meta: { requiresAuth: true } },
   { path: '/products/edit/:slug', name: 'editProduct', component: editProductComponent, props: true, meta: { requiresAuth: true } },
+  { path: '/products/delete', name: 'deleteProduct', component: DeleteProductComponent, meta: { requiresAuth: true } },
   { path: '/register', name: 'register', component: RegisterView }
 
 ]
