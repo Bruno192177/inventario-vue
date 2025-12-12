@@ -1,28 +1,43 @@
-import { defineConfig, globalIgnores } from 'eslint/config'
-import globals from 'globals'
+import { defineConfig } from 'eslint-define-config'
+import vue from 'eslint-plugin-vue'
 import js from '@eslint/js'
-import pluginVue from 'eslint-plugin-vue'
-import pluginOxlint from 'eslint-plugin-oxlint'
-import skipFormatting from '@vue/eslint-config-prettier/skip-formatting'
+import globals from 'globals'
 
 export default defineConfig([
   {
-    name: 'app/files-to-lint',
-    files: ['**/*.{js,mjs,jsx,vue}'],
+    name: 'core',
+    ignores: [
+      'dist',
+      'dist-ssr',
+      'coverage',
+    ],
   },
 
-  globalIgnores(['**/dist/**', '**/dist-ssr/**', '**/coverage/**']),
-
   {
+    files: ['**/*.{js,jsx,mjs,vue}'],
     languageOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'module',
       globals: {
         ...globals.browser,
+        ...globals.es2021,
       },
+    },
+
+    plugins: {
+      vue,
+    },
+
+    rules: {
+      ...js.configs.recommended.rules,
+      ...vue.configs['vue3-essential'].rules,
     },
   },
 
-  js.configs.recommended,
-  ...pluginVue.configs['flat/essential'],
-  ...pluginOxlint.configs['flat/recommended'],
-  skipFormatting,
+  // Opcional: no formatear con eslint (si usas Prettier)
+  {
+    rules: {
+      'vue/multi-word-component-names': 'off',
+    },
+  },
 ])
